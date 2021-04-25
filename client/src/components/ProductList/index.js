@@ -32,7 +32,7 @@ const UPDATE_PRODUCT = gql`
       price
     }
   }
-`
+`;
 const DELETE_PRODUCT = gql`
   mutation deleteProduct($id: ID!){
     deleteProduct(product:{
@@ -43,12 +43,11 @@ const DELETE_PRODUCT = gql`
       price
     }
   }
-`
+`;
 
 function Product({ product }) {
   const [currEdit, setCurrEdit] = useState(null);
   const [input, setInput] = useState({})
-  const { loading, error, data } = useQuery(PRODUCT_QUERY)
   const [updateProduct] = useMutation(UPDATE_PRODUCT)
   const [deleteProduct] = useMutation(DELETE_PRODUCT)
 
@@ -115,15 +114,14 @@ function Product({ product }) {
 }
 
 function ProductList() {
-  const { loading, error, data } = useQuery(PRODUCT_QUERY)
+  const { loading, error, data } = useQuery(PRODUCT_QUERY, {
+    pollInterval: 500,
+  })
   
-  // setProducts(() => data.products)
-
   if (loading) return <p>Loading...</p>
   if (error) return <p>Error...¯\_(ツ)_/¯</p>
   return (
     <div className='ProductList'>
-      {/* GREAT EXPORT MODULE CANADATE */}
       {data.products.map(product => {
         return <Product product={product} key={product.id} />
       })}
