@@ -53,7 +53,7 @@ function Product({ product }) {
 
   let inEditMode
   if (currEdit === product.id) { inEditMode = true }
-  if (currEdit == !product.id) { inEditMode = false }
+  if (currEdit === !product.id) { inEditMode = false }
 
   const toggleEdit = (curr) => {
     if (curr === currEdit) {

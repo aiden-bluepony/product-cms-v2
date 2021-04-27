@@ -40,7 +40,8 @@ function AddProduct() {
     addProduct({
       variables:{
         name: input.name,
-        price: parseFloat(input.price)
+        price: parseFloat(input.price),
+        img: input.img
       }
     }).then(() => {
       setInput({})
@@ -51,6 +52,7 @@ function AddProduct() {
     <form className="AddProduct" onSubmit={onSubmit}>
       <input type="text" name="name" placeholder="name" onChange={onInput} value={input.name || ''} />
       <input type="text" name="price" placeholder="price" onChange={onInput} value={input.price || ''} />
+      <input type="file" name="img" onChange={onInput}/>
       <button>submit</button>
       <br/>
       <br/>

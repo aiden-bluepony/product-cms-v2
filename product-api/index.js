@@ -32,6 +32,12 @@ const typeDefs = gql`
     price: Float
     img: String
   }
+  type FileUploadResponse {
+    filename: String!
+    mimetype: String!
+    encoding: String!
+    url: String!
+  }
   type Query {
     product(id: ID): Product
     products: [Product]
@@ -46,6 +52,7 @@ const typeDefs = gql`
     addProduct(product: ProductInput): [Product]
     updateProduct(product: ProductInput): [Product]
     deleteProduct(product: ProductInput): [Product]
+    singleUpload(file: Upload!): FileUploadResponse!
   }
 `;
 
@@ -75,6 +82,7 @@ const resolvers = {
   },
   Mutation: {
     addProduct: async (obj, { product }, context, info) => {
+      console.log(product)
       try {
         await Product.create({
           ...product
@@ -108,6 +116,13 @@ const resolvers = {
       } catch (err) {
         console.log('error', err)
       }
+    },
+    singleUpload: async (parent, {file}) => {
+      const {stream,filename,mimetype,encoding} = await file;
+
+        // Do work 💪
+
+        return { filename, mimetype, encoding, url: '' }
     }
   }
 }
